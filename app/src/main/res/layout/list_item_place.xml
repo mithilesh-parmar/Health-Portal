@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout  xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <data>
+        <variable
+        name="viewModel"
+        type="com.example.mithilesh.healthportal.PlaceViewModel"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:padding="4dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginRight="4dp"
+            >
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@color/colorAccent"
+                bind:layout_constraintTop_toTopOf="parent"
+                bind:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="4dp"
+                bind:icon="@{viewModel.iconUrl}"
+                />
+
+            <TextView
+                android:id="@+id/name"
+                bind:layout_constraintLeft_toRightOf="@id/profileImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:layout_marginRight="4dp"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:text="@{viewModel.name}"
+                />
+
+            <TextView
+                android:id="@+id/title"
+                bind:layout_constraintLeft_toRightOf="@id/profileImage"
+                bind:layout_constraintTop_toBottomOf="@id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.category}"
+                android:paddingLeft="8dp"
+                android:paddingBottom="4dp"
+                style="@style/TextAppearance.AppCompat.Caption"
+                />
+
+            <TextView
+                android:id="@+id/openNow"
+                bind:layout_constraintLeft_toRightOf="@id/profileImage"
+                bind:layout_constraintTop_toBottomOf="@id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.openNow}"
+                android:paddingLeft="8dp"
+                android:paddingBottom="4dp"
+                style="@style/TextAppearance.AppCompat.Caption"
+                />
+
+            <LinearLayout
+                android:id="@+id/ratingCard"
+                bind:layout_constraintLeft_toRightOf="@id/profileImage"
+                bind:layout_constraintTop_toBottomOf="@id/openNow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingBottom="4dp"
+                >
+
+                <TextView
+                    android:id="@+id/totalRatingUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.totalRating}"
+
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    />
+                <TextView
+                    android:id="@+id/totalRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.rating}"
+                    android:paddingLeft="8dp"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/vicinity"
+                bind:layout_constraintLeft_toRightOf="@id/profileImage"
+                bind:layout_constraintTop_toBottomOf="@id/ratingCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.locality}"
+                android:paddingLeft="8dp"
+                android:paddingBottom="4dp"
+                style="@style/TextAppearance.AppCompat.Caption"
+                />
+
+
+                <Button
+                    android:id="@+id/locateButton"
+                    bind:layout_constraintTop_toBottomOf="@id/vicinity"
+                    bind:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:text="Locate"
+                    android:drawableLeft="@drawable/ic_location"
+                    android:drawableTint="@color/white"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

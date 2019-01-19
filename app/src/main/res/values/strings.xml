@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Health Portal</string>
+
+    <style name="goolge_maps_api">AIzaSyDIH6VyEfL8bbFi5F5Srn5r3pFfYFyPpf0</style>
+
+    <string name="title_activity_maps">Map</string>
+</resources>

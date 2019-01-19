@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "334985099455",
+    "firebase_url": "https://healthportal-415ed.firebaseio.com",
+    "project_id": "healthportal-415ed",
+    "storage_bucket": "healthportal-415ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334985099455:android:1739fda653fbc346",
+        "android_client_info": {
+          "package_name": "com.example.mithilesh.healthportal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334985099455-q2phaco0h8fuufrd1usf637pmparqcbq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mithilesh.healthportal",
+            "certificate_hash": "cee1fc7e2fc0dc01da5a353f732a5bfd460feb29"
+          }
+        },
+        {
+          "client_id": "334985099455-eh73ntgm7u36f1ckmhnnc5s989oele66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkX31DbERE42aKYT7rcCQBrFu8hX5-Tc0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334985099455-eh73ntgm7u36f1ckmhnnc5s989oele66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
