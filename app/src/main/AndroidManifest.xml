@@ -14,9 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+
 
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
@@ -28,7 +26,6 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".HospitalPackage.HospitalActivity" />
         <activity android:name=".DoctorPackage.DoctorActivity"/>
-        <activity android:name=".TestActivity"/>
 
         <uses-library
             android:name="org.apache.http.legacy"

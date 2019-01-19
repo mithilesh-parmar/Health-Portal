@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.mithilesh.healthportal.Model.Place;
 import com.example.mithilesh.healthportal.Model.PlaceDetail;
+import com.example.mithilesh.healthportal.Model.PlaceLocation;
 import com.example.mithilesh.healthportal.Model.PlacePhoto;
 import com.example.mithilesh.healthportal.Model.PlaceReviews;
 
@@ -108,7 +109,9 @@ public  class DataFetcher {
     }
 
     protected boolean containsParam(JSONObject object, String param){
-        return object.has(param);
+        boolean result = object.has(param);
+        Log.d(TAG, "containsParam: "+param);
+        return result;
     }
 
     public  List<Place> getNearbyPlace(){
@@ -153,38 +156,61 @@ public  class DataFetcher {
                     Place currentPlace = new Place();
                     JSONObject placeObject = results.getJSONObject(i);
 
+                    //geometry
+                    if (containsParam(placeObject,"geometry")){
+                        //get geometry object
+                        JSONObject geometryObject = placeObject.getJSONObject("geometry");
+
+                        //extract location object from geometry
+                        if (containsParam(geometryObject,"location")){
+                            JSONObject locationObject = geometryObject.getJSONObject("location");
+                            Double lat = locationObject.getDouble("lat");
+                            Double lng = locationObject.getDouble("lng");
+                            currentPlace.setLocation(lat,lng);
+                        }
+
+                    }
+
                     //icon url
-                    if (containsParam(placeObject,"icon"))
+                    if (containsParam(placeObject,"icon")) {
                         currentPlace.setIconUrl(placeObject.getString("icon"));
+                    }
 
                     //id
-                    if (containsParam(placeObject,"id"))
+                    if (containsParam(placeObject,"id")) {
                         currentPlace.setId(placeObject.getString("id"));
+                    }
 
                     //name
-                    if (containsParam(placeObject,"name"))
+                    if (containsParam(placeObject,"name")) {
                         currentPlace.setName(placeObject.getString("name"));
+                    }
 
                     //opening hours
-                    if (containsParam(placeObject,"opening_hours"))
+                    if (containsParam(placeObject,"opening_hours")) {
                         currentPlace.setOpenNow(placeObject.getJSONObject("opening_hours")
                                 .getBoolean("open_now"));
+                    }
 
                     //place id
-                    if (containsParam(placeObject,"place_id"))
+                    if (containsParam(placeObject,"place_id")) {
                         currentPlace.setPlaceId(placeObject.getString("place_id"));
+                    }
 
                     //rating
-                    if (containsParam(placeObject,"rating"))
+                    if (containsParam(placeObject,"rating")) {
                         currentPlace.setRating(placeObject.getDouble("rating"));
+                    }
 
                     //user total rating
-                    if (containsParam(placeObject,"user_ratings_total"))
+                    if (containsParam(placeObject,"user_ratings_total")) {
                         currentPlace.setUserRatingsTotal(placeObject.getInt("user_ratings_total"));
+                    }
 
                     //vicinity
-                    if (containsParam(placeObject,"vicinity"))
+                    if (containsParam(placeObject,"vicinity")) {
                         currentPlace.setVicinity(placeObject.getString("vicinity"));
+                    }
 
                     Log.d(TAG, "parsePlace: adding place object: "+currentPlace);
                     places.add(currentPlace);
@@ -216,7 +242,7 @@ public  class DataFetcher {
         return null;
     }
 
-    protected PlaceDetail parsePlaceDetail(JSONObject body) {
+    private PlaceDetail parsePlaceDetail(JSONObject body) {
         Log.d(TAG, "parsePlaceDetail: starting");
         try{
 
@@ -228,72 +254,61 @@ public  class DataFetcher {
                 //formatted address
                 if (containsParam(resultBody,"formatted_address")){
                     currentPlaceDetail.setFormattedAddress(resultBody.getString("formatted_address"));
-                    Log.d(TAG, "parsePlaceDetail: contains formatted address");
+
                 }
 
                 //formatted phone number
                 if (containsParam(resultBody,"formatted_phone_number")) {
-                    Log.d(TAG, "parsePlaceDetail: contains formatted number");
                     currentPlaceDetail.setFormattedPhoneNumber(resultBody.getString("formatted_phone_number"));
                 }
 
                 //id
                 if (containsParam(resultBody,"id")) {
-                    Log.d(TAG, "parsePlaceDetail: contains id");
                     currentPlaceDetail.setId(resultBody.getString("id"));
                 }
 
                 //international phone number
                 if (containsParam(resultBody,"international_phone_number")) {
-                    Log.d(TAG, "parsePlaceDetail: Contains phone number");
                     currentPlaceDetail.setInternationalPhoneNumber(resultBody.getString("international_phone_number"));
                 }
 
                 //name
                 if (containsParam(resultBody,"name")) {
-                    Log.d(TAG, "parsePlaceDetail: Contains name");
                     currentPlaceDetail.setName(resultBody.getString("name"));
                 }
 
                 //place id
                 if (containsParam(resultBody,"place_id")) {
-                    Log.d(TAG, "parsePlaceDetail: Contains Place id");
                     currentPlaceDetail.setPlaceId(resultBody.getString("place_id"));
                 }
 
                 //rating
                 if (containsParam(resultBody,"rating")) {
-                    Log.i(TAG, "parsePlaceDetail: contains rating");
                     currentPlaceDetail.setRating(resultBody.getInt("rating"));
                 }
 
                 //url
                 if (containsParam(resultBody,"url")) {
-                    Log.d(TAG, "parsePlaceDetail: contains url");
                     currentPlaceDetail.setUrl(resultBody.getString("url"));
                 }
 
                 //user rating total
                 if (containsParam(resultBody,"user_ratings_total")) {
-                    Log.d(TAG, "parsePlaceDetail: Contains user ratings total");
                     currentPlaceDetail.setUserRatingsTotal(resultBody.getInt("user_ratings_total"));
                 }
 
                 //vicinity
                 if (containsParam(resultBody,"vicinity")) {
-                    Log.d(TAG, "parsePlaceDetail: contains vicinity");
                     currentPlaceDetail.setVicinity(resultBody.getString("vicinity"));
                 }
 
                 //website
                 if (containsParam(resultBody,"website")) {
-                    Log.d(TAG, "parsePlaceDetail: contains website");
                     currentPlaceDetail.setWebsite(resultBody.getString("website"));
                 }
 
                 //opening hours
                 if (containsParam(resultBody,"opening_hours")){
-                    Log.d(TAG, "parsePlaceDetail: contains openeing hours");
                     //get parent object
                     JSONObject openingHoursObject = resultBody.getJSONObject("opening_hours");
 
@@ -304,7 +319,6 @@ public  class DataFetcher {
                     //extracting string from weekdays text
                     for (int i = 0; i <weekDaysText.length() ; i++) {
                         weekDaysTextList.add(String.valueOf(weekDaysText.get(i)));
-                        Log.d(TAG, "parsePlaceDetail: parsing weekdays "+weekDaysTextList.get(i));
                     }
 
                     currentPlaceDetail.setOpenWeekdayText(weekDaysTextList);
@@ -314,7 +328,6 @@ public  class DataFetcher {
                 //photos
                 if (containsParam(resultBody,"photos")){
 
-                    Log.i(TAG, "parsePlaceDetail: Contains photo");
 
                     //get photos array
                     JSONArray photosArray = resultBody.getJSONArray("photos");
@@ -356,7 +369,6 @@ public  class DataFetcher {
                 //reviews
                 if (containsParam(resultBody,"reviews")){
 
-                    Log.d(TAG, "parsePlaceDetail: Contains Reviews");
                     //Reviews Array
                     JSONArray placeReviewsArray = resultBody.getJSONArray("reviews");
                     List<PlaceReviews> placeReviews = new ArrayList<>();

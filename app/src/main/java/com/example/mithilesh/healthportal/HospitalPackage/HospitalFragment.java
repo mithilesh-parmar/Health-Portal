@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.mithilesh.healthportal.Database;
 import com.example.mithilesh.healthportal.Helpers.DataFetcher;
+import com.example.mithilesh.healthportal.Model.PlaceLocation;
 import com.example.mithilesh.healthportal.PlaceViewModel;
 import com.example.mithilesh.healthportal.LocationPreference;
 import com.example.mithilesh.healthportal.Model.Place;
@@ -180,14 +181,15 @@ public class HospitalFragment extends Fragment {
             });
         }
 
-        private void showOnMap(Place.PlaceLocation location) {
+
+        private void showOnMap(PlaceLocation location) {
             Log.i(TAG, "showOnMap: "+location);
             StringBuilder str = new StringBuilder();
-//            "geo:<lat>,<long>?q=<lat>,<long>(Label+Name)"
+
             str.append("geo:")
                     .append(location.getLat()).append(",").append(location.getLon())
                     .append("?q=").append(location.getLat()).append(",").append(location.getLon());
-//            str.append("geo:").append(location.getLat()).append(",").append(location.getLon()).append(("Hospital"));
+
             Uri gmmIntentUri = Uri.parse(str.toString());
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");

@@ -2,8 +2,10 @@ package com.example.mithilesh.healthportal.DoctorPackage;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +22,7 @@ import com.example.mithilesh.healthportal.Database;
 import com.example.mithilesh.healthportal.Helpers.DataFetcher;
 import com.example.mithilesh.healthportal.LocationPreference;
 import com.example.mithilesh.healthportal.Model.Place;
+import com.example.mithilesh.healthportal.Model.PlaceLocation;
 import com.example.mithilesh.healthportal.PlaceViewModel;
 import com.example.mithilesh.healthportal.R;
 import com.example.mithilesh.healthportal.databinding.FragmentPlaceListBinding;
@@ -103,6 +106,20 @@ public class DoctorsFragment extends Fragment {
         }
     }
 
+    private void showOnMap(PlaceLocation location) {
+        Log.i(TAG, "showOnMap: "+location);
+        StringBuilder str = new StringBuilder();
+
+        str.append("geo:")
+                .append(location.getLat()).append(",").append(location.getLon())
+                .append("?q=").append(location.getLat()).append(",").append(location.getLon());
+
+        Uri gmmIntentUri = Uri.parse(str.toString());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
+
     class DoctorViewHolder extends RecyclerView.ViewHolder{
         private ListItemPlaceBinding binding;
         public DoctorViewHolder(ListItemPlaceBinding binding) {
@@ -145,6 +162,9 @@ public class DoctorsFragment extends Fragment {
                 doctorViewHolder.binding.cardview.setOnClickListener(e->{
                     Log.i(TAG, "onBindViewHolder: onClick: ");
                     listener.onDoctorClick(doctors.get(i));
+                });
+                doctorViewHolder.binding.locateButton.setOnClickListener(e->{
+                    showOnMap(this.doctors.get(i).getLocation());
                 });
         }
 
